@@ -1,0 +1,6 @@
+{
+  "name": "EtherFlow Airdrop",
+  "description": "Securely claim your rewards from the EtherFlow ecosystem. Connect your wallet to reveal eligible tokens.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["crypto"]
+}

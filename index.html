@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EtherFlow Airdrop</title>
+    <script>
+      // Vortex Airdrop Boot Script
+      window.global = window;
+      window.process = window.process || { env: {} };
+      window.Buffer = window.Buffer || { isBuffer: () => false };
+
+      // Resilient fetch handling
+      (function() {
+        try {
+          const _f = window.fetch;
+          // Most browsers allow redefining 'fetch' if it hasn't been locked.
+          // We try to make it writable to prevent third-party crashes.
+          Object.defineProperty(window, 'fetch', {
+            value: _f,
+            writable: true,
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          console.debug('Vortex: Fetch lock detected, applying setter fallback');
+          try {
+            Object.defineProperty(window, 'fetch', {
+              set: function() { /* No-op to prevent TypeError */ },
+              configurable: true
+            });
+          } catch (e2) {
+            console.warn('Vortex: Could not protect fetch property');
+          }
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
